@@ -8,6 +8,11 @@ def create(item):
 def read(index):
     return checklist[index]
 
-checklist = ['blue', 'orange']
-checklist[1] = 'cats'
-print(checklist)
+# UPDATE
+def update(index, item):
+    checklist[index] = item
+
+# DESTROY
+def destroy(index):
+    checklist.pop(index)
+    
