@@ -1,5 +1,4 @@
 # coding: utf-8
-
 checklist = list()
 
 # CREATE
@@ -27,7 +26,37 @@ def list_all_items():
 
 # CHECKMARK
 def mark_completed(index):
-    print("√" + checklist[index])
+    completed_item = "√" + checklist[index]
+    print(completed_item)
+
+# INPUT
+def user_input(prompt):
+    # the input function will display a message in the terminal
+    # and wait for user input.
+    user_input = input(prompt)
+    return user_input
+
+# SELECT 
+def select(function_code):
+    # Create item
+    if function_code == "C":
+        input_item = user_input("Input item:")
+        create(input_item)
+
+    # Read item
+    elif function_code == "R":
+        item_index = user_input("Index Number?")
+
+        # Remember that item_index must actually exist or our program will crash.
+        read(int(item_index))
+
+    # Print all items
+    elif function_code == "P":
+        list_all_items()
+
+    # Catch all
+    else:
+        print("Unknown Option")
     
 
 def test():
@@ -42,6 +71,14 @@ def test():
     print(read(0))
     print(read(1))
     list_all_items()
-    mark_completed(0)
+    mark_completed(1)
+    # Call your new function with the appropriate value
+    select("C")
+    # View the results
+    list_all_items()
+    # Call function with new value
+    select("R")
+    # View results
+    list_all_items()
 
 test()
