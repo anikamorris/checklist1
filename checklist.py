@@ -40,23 +40,53 @@ def user_input(prompt):
 # SELECT 
 def select(function_code):
     # Create item
-    if function_code == "C":
+    if function_code.upper() == "C":
         input_item = user_input("Input item:")
         create(input_item)
 
     # Read item
-    elif function_code == "R":
+    elif function_code.upper() == "R":
         item_index = user_input("Index Number?")
+        item_index = int(item_index)
+        # ensures index is in checklist
+        if item_index < len(checklist):
+            read(item_index)
+        else:
+            print("Please select a real index.")     
 
-        # Remember that item_index must actually exist or our program will crash.
-        read(int(item_index))
+    # Update list
+    elif function_code.upper() == "U":
+        item_index = user_input("What index would you like to update?")
+        # casts response to integer
+        item_index = int(item_index)
+        # ensures index is in checklist
+        if item_index < len(checklist):
+            replacement = user_input("What would you like to change index " + str(item_index) + " to?")
+            user_is_sure = user_input("Are you sure you want to change " + checklist[item_index] + " to " + replacement + "? (Y/N)")
+            if user_is_sure.upper() == "Y" or user_is_sure.upper() == "YES":
+                checklist[item_index] = replacement
+                print("Index " + str(item_index) + " has been updated.")
+            else:
+                print("Did not update.")
+        else:
+            print("Please select a real index.")        
 
     # Print all items
-    elif function_code == "P":
+    elif function_code.upper() == "P":
         list_all_items()
 
-    elif function_code == "Q":
-        # This is where we want to stop our loop
+    # Delete item
+    elif function_code.upper() == "D":
+        item_index = user_input("Index Number?")
+        item_index = int(item_index)
+        if item_index < len(checklist):
+            item = checklist[item_index]
+            checklist.remove(item)
+            print(item + " has been removed.")
+        else:
+            print("Please select a real index.")  
+
+    elif function_code.upper() == "Q":
         return False
 
     # Catch all
@@ -92,5 +122,5 @@ def test():
 running = True
 while running:
     selection = user_input(
-        "Press C to add to list, R to Read from list and P to display list, and Q to quit")
+        "Press C to add to list, R to read from list, U to update list, P to display list, D to delete from list and Q to quit")
     running = select(selection)
