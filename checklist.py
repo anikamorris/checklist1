@@ -29,6 +29,7 @@ def list_all_items():
 def mark_completed(index):
     completed_item = "√" + checklist[index]
     print(completed_item)
+    return completed_item
 
 # INPUT
 def user_input(prompt):
@@ -74,6 +75,17 @@ def select(function_code):
     # Print all items
     elif function_code.upper() == "P":
         list_all_items()
+
+    # Mark as completed
+    elif function_code.upper() == "M":
+        item_index = user_input("Index Number?")
+        item_index = int(item_index)
+        # ensures index is in checklist
+        if item_index < len(checklist):
+            checklist[item_index] = mark_completed(item_index)
+        else:
+            print("Please select a real index.")
+
 
     # Delete item
     elif function_code.upper() == "D":
@@ -122,5 +134,5 @@ def test():
 running = True
 while running:
     selection = user_input(
-        "Press C to add to list, R to read from list, U to update list, P to display list, D to delete from list and Q to quit")
+        "Press C to add to list, R to read from list, U to update list, P to display list, M to mark as complete, D to delete from list and Q to quit")
     running = select(selection)
